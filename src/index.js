@@ -75,40 +75,28 @@ function createGalleryMarkup(images) {
     .map(
       ({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) =>
         `
-        <a href="${largeImageURL}">
-        <div class="photo-card">
-          <img src="${webformatURL}" data-source="${largeImageURL}" alt="${tags}" loading="lazy" />
-          <div class="info">
-            <p class="info-item">
-              <b>Likes:</b> ${likes}
-            </p>
-            <p class="info-item">
-              <b>Views:</b> ${views}
-            </p>
-            <p class="info-item">
-              <b>Comments:</b> ${comments}
-            </p>
-            <p class="info-item">
-              <b>Downloads:</b> ${downloads}
-            </p>
+        <a class="photo__link" href="${largeImageURL}">
+          <div class="photo-card">
+            <img class="gallery-item__img" src="${webformatURL}" data-source="${largeImageURL}" alt="${tags}" loading="lazy" data-caption="Likes: ${likes}<br>Views: ${views}<br>Comments: ${comments}<br>Downloads: ${downloads}"/>
+            <div class="info">
+              <p class="info-item">
+                <b>Likes:</b> ${likes}
+              </p>
+              <p class="info-item">
+                <b>Views:</b> ${views}
+              </p>
+              <p class="info-item">
+                <b>Comments:</b> ${comments}
+              </p>
+              <p class="info-item">
+                <b>Downloads:</b> ${downloads}
+              </p>
+            </div>
           </div>
-        </div>
         </a>
       `,
     )
     .join('');
-}
-
-gallery.addEventListener('click', onGalleryClick);
-
-function onGalleryClick(event) {
-  if (event.target.nodeName !== 'IMG') {
-    return;
-  }
-
-  const largeImageURL = event.target.dataset.source;
-
-  Notiflix.Modal.image(largeImageURL);
 }
 
 function showLoadMoreButton() {
@@ -125,18 +113,45 @@ function onLoadMoreButtonClick(event) {
 }
 
 const lightbox = new SimpleLightbox('.gallery a', {
-captions: true,
-captionsData: 'alt',
-captionDelay: 250,
-close: true,
-closeText: 'O',
-controls: true,
-docClose: true,
-preload: true,
-spinner: true,
-spinnerHtml: null,
-widthRatio: 0.8,
-heightRatio: 0.8,
-scaleImageToRatio: false,
-disableRightClick: false,
+  captions: true,
+//   captionsData: 'alt',
+captionsData: 'data-caption',
+  captionDelay: 250,
+  captionPosition: 'bottom',
+  close: true,
+  closeText: 'O',
+  preload: true,
+  spinner: true,
+  enableKeyboard: true,
+  spinnerHtml: null,
+  widthRatio: 0.8,
+  heightRatio: 0.8,
+  scaleImageToRatio: false,
+  disableRightClick: false,
 });
+
+onScroll();
+onToTopBtn();
+
+const toTopBtn = document.querySelector('.btn-to-top');
+
+window.addEventListener('scroll', onScroll);
+toTopBtn.addEventListener('click', onToTopBtn);
+
+function onScroll() {
+  const scrolled = window.pageYOffset;
+  const coords = document.documentElement.clientHeight;
+
+  if (scrolled > coords) {
+    toTopBtn.classList.add('btn-to-top--visible');
+  }
+  if (scrolled < coords) {
+    toTopBtn.classList.remove('btn-to-top--visible');
+  }
+}
+
+function onToTopBtn() {
+  if (window.pageYOffset > 0) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}

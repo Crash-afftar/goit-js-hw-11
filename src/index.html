@@ -3,20 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page title</title>
+    <title>Search Gallery</title>
     <link rel="stylesheet" href="./sass/index.scss" />
     <script type="module" src="./index.js"></script>
   </head>
   <body>
+    
     <form class="search-form" id="search-form">
       <input class="input" type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
-      <button type="submit">Search</button>
+      <button class="searchButton" type="submit" href="#">
+        <i class="material-icons">
+        search
+      </i></button>
     </form>
   
     <div class="container">
       <div class="gallery"></div>
     </div>
-  
-    <button type="button" class="load-more">Load more</button>
+<button type="button" class="load-more">
+  <i class="material-icons">
+  Load more
+</i></button></button>
   </body>
 </html>
