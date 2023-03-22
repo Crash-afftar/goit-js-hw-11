@@ -113,8 +113,9 @@ function hideLoadMoreButton() {
 
 function notification(length, totalHits) {
   if (length === 0) {
+    hideLoadMoreButton();
     Notiflix.Notify.info(
-      'Sorry, there are no images matching your search query. Please try again.'
+            'Sorry, there are no images matching your search query. Please try again.'
     );
     return;
   }
