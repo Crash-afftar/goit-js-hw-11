@@ -178,3 +178,18 @@ body {
     padding: 10px;
     justify-content: space-around;
 }
+
+.scroll-to-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #000;
+    color: #fff;
+    font-size: 24px;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 100;
+    opacity: 0.7;
+}
